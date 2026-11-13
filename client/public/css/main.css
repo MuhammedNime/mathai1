@@ -1,0 +1,24 @@
+/* ==================== MAIN CSS HUB ==================== */
+
+/* 1. Base (Variables & Reset) */
+@import 'base/variables.css';
+@import 'base/global.css';
+
+/* 2. Layout (Structure) */
+@import 'layout/header.css';
+@import 'layout/navigation.css';
+@import 'layout/modal.css';
+
+/* 3. Components (Small Parts) */
+@import 'components/buttons.css'; /* إذا فصلت الأزرار */
+@import 'components/chat-bubbles.css';
+@import 'components/input-area.css';
+@import 'components/math-charts.css';
+
+/* 4. Modules (Big Features) */
+@import 'modules/calculator.css';
+@import 'modules/workspaces.css';
+
+/* 5. Utilities (Helpers) */
+@import 'utils/animations.css';
+

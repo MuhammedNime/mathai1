@@ -1,0 +1,232 @@
+/* ==================== DARK MODE SMOOTH TRANSITIONS ==================== */
+
+/* تطبيق View Transition API للـ modern browsers */
+:root {
+    view-transition-name: root;
+}
+
+/* Smooth transitions for all color properties */
+html, body {
+    transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Main containers and sections */
+.chat-header,
+.chat-messages,
+.chat-input-area,
+.sidebar-nav,
+.app-modal,
+.modal-content,
+.message-bubble,
+.editor-area,
+.text-input-wrapper,
+.bottom-nav-menu,
+.dropdown-content,
+.chat-options-dropdown {
+    transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Buttons and interactive elements */
+button,
+a,
+input,
+select,
+textarea {
+    transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                fill 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Scrollbar transitions */
+::-webkit-scrollbar-thumb {
+    transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Badge and accent elements */
+.badge,
+.tag,
+.label,
+.badge-notification {
+    transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Text content transitions */
+h1, h2, h3, h4, h5, h6,
+p, span, div {
+    transition: color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Gradient backgrounds */
+.primary-gradient,
+.secondary-gradient {
+    transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Shadow transitions */
+.box-shadow-light,
+.box-shadow-medium,
+.box-shadow-heavy {
+    transition: box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== DARK MODE ANIMATION ==================== */
+@keyframes darkModeSwitch {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.98;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* تطبيق animation عند تغيير الـ theme */
+body.theme-switching {
+    animation: darkModeSwitch 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== DARK MODE BUTTON GLOW ==================== */
+#darkModeToggle {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#darkModeToggle:hover {
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
+}
+
+.dark-mode #darkModeToggle:hover {
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+}
+
+/* ==================== SMOOTH COLOR TRANSITIONS FOR THEME COLORS ==================== */
+/* Gradient backgrounds transition */
+.bg-gradient {
+    transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Primary color elements */
+.primary-color-text,
+.primary-color-bg {
+    transition: color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== REDUCED MOTION SUPPORT ==================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ==================== THEME TOGGLE SMOOTH EFFECT ==================== */
+.icon-btn#darkModeToggle {
+    position: relative;
+    overflow: hidden;
+}
+
+.icon-btn#darkModeToggle::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.icon-btn#darkModeToggle:active::before {
+    width: 100px;
+    height: 100px;
+}
+
+/* ==================== TOAST NOTIFICATIONS COLOR TRANSITION ==================== */
+.toast-message {
+    transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== SVG AND ICON TRANSITIONS ==================== */
+svg,
+svg path {
+    transition: fill 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                stroke 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== MATH CONTENT TRANSITIONS ==================== */
+.katex,
+.math-content,
+.math-expression {
+    transition: color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== TABLE TRANSITIONS ==================== */
+table,
+th,
+td {
+    transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== FORM ELEMENTS TRANSITIONS ==================== */
+input::placeholder,
+textarea::placeholder {
+    transition: color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+input:focus,
+textarea:focus {
+    transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== MODAL BACKDROP TRANSITIONS ==================== */
+.app-modal {
+    transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== SMOOTH LIBRARY TRANSITIONS ==================== */
+.library-item,
+.library-module,
+.lesson-item {
+    transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== WORKSPACE TRANSITIONS ==================== */
+.workspace-modal-advanced,
+.matrix-workspace-body-vertical,
+.calculus-workspace-body-vertical {
+    transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==================== PROGRESS AND LOADING ANIMATIONS ==================== */
+.loading-spinner {
+    transition: border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progress-bar {
+    transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}

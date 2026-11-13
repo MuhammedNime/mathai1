@@ -1,0 +1,45 @@
+/* Input area layout */
+.chat-input-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+    direction: ltr; /* enforce physical left/right positions */
+}
+
+.chat-input-center {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.chat-input-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: center;
+    flex: 0 0 auto;
+}
+
+.chat-input-right {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    flex: 0 0 auto;
+}
+
+/* Make buttons smaller inside the input area to free space */
+.chat-input-area .action-btn {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    font-size: 18px;
+}
+
+.chat-input-area .math-tool-btn {
+    padding: 4px 8px;
+    font-size: 13px;
+}
+
+.chat-input-area .text-input-wrapper {
+    padding: 4px 10px;
+}

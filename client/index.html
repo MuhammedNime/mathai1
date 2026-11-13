@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <link rel="manifest" href="/manifest.json" />
+
+    <meta name="apple-mobile-web-app-title" content="المستشار الرياضي" />
+    <link rel="icon" href="/icons/icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="shortcut icon" href="/icons/icon-192.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/icons/icon-152.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-167.png" />
+
+    <meta name="theme-color" content="#667eea" />
+    <meta name="msapplication-TileColor" content="#667eea" />
+    <meta name="msapplication-TileImage" content="/icons/icon-144.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="المستشار الرياضي - مساعدك الذكي لحل المسائل" />
+    <meta property="og:description" content="حل جميع مسائل الرياضيات بالذكاء الاصطناعي - من الابتدائي للجامعي" />
+    <meta property="og:image" content="og-image.png" />
+    <meta property="og:url" content="https://mathassistant.com" />
+    <meta property="og:site_name" content="المستشار الرياضي" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="المستشار الرياضي" />
+    <meta name="twitter:description" content="مساعدك الذكي لحل جميع مسائل الرياضيات" />
+    <meta name="twitter:image" content="twitter-card.png" />
+
+    <meta name="keywords" content="رياضيات، حل مسائل، ذكاء اصطناعي، تعليم، مساعد رياضيات، جبر، هندسة، حساب" />
+    <link rel="canonical" href="https://mathassistant.com" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="preconnect" href="https://www.gstatic.com" />
+    <link rel="dns-prefetch" href="https://generativelanguage.googleapis.com" />
+    <link rel="dns-prefetch" href="https://firestore.googleapis.com" />
+
+    <title>المستشار الرياضي</title>
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/components/dark-mode-transitions.css" />
+    <link rel="stylesheet" href="/libs/katex.min.css" />
+    <link rel="stylesheet" href="/libs/css2.css" />
+    <link rel="stylesheet" href="/css/components/library.css" />
+    <link rel="stylesheet" href="/libs/katex-swap.min.css" />
+
+    <script src="/libs/firebase-app-compat.js"></script>
+    <script src="/libs/firebase-auth-compat.js"></script>
+    <script src="/libs/firebase-firestore-compat.js"></script>
+    <script src="/libs/FileSaver.min.js"></script>
+    <script src="/libs/html2canvas.min.js"></script>
+    <script src="/libs/jspdf.umd.min.js"></script>
+    <script src="/libs/katex.min.js"></script>
+    <script src="/libs/pdf.min.js"></script>
+    <script src="/libs/tesseract/tesseract.min.js"></script>
+    <script src="/libs/math.min.js" defer></script>
+    <script src="/libs/mathlive.min.js" defer></script>
+    <script src="/libs/Algebrite-master/dist/algebrite.bundle-for-browser-min.js"></script>
+    <script src="/libs/plotly.min.js" defer></script>
+    <script src="/libs/chart.umd.min.js" defer></script>
+    <script src="/libs/nerdamer-master/all.min.js" defer></script>
+
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3)"
+      href="/splash/iPhone_15_Pro_Max__iPhone_15_Plus__iPhone_14_Pro_Max_portrait.png"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3)"
+      href="/splash/iPhone_15_Pro__iPhone_15__iPhone_14_Pro_portrait.png"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)"
+      href="/splash/iPhone_14_Plus__iPhone_13_Pro_Max__iPhone_12_Pro_Max_portrait.png"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)"
+      href="/splash/iPhone_14__iPhone_13_Pro__iPhone_13__iPhone_12_Pro__iPhone_12_portrait.png"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
+      href="/splash/iPhone_13_mini__iPhone_12_mini__iPhone_11_Pro__iPhone_XS__iPhone_X_portrait.png"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)"
+      href="/splash/iPhone_11_Pro_Max__iPhone_XS_Max_portrait.png"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"
+      href="/splash/iPhone_11__iPhone_XR_portrait.png"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3)"
+      href="/splash/iPhone_8_Plus__iPhone_7_Plus__iPhone_6s_Plus__iPhone_6_Plus_portrait.png"
+    />
+    <link
+      rel="apple-touch-startup-image"
+      media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)"
+      href="/splash/iPhone_8__iPhone_7__iPhone_6s__iPhone_6__4.7__iPhone_SE_portrait.png"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,109 @@
+/* ==================== MATH KEYBOARD FIX (CRITICAL) ==================== */
+
+/* 1. إجبار لوحة المفاتيح للظهور فوق أي نافذة منبثقة */
+body .ML__keyboard {
+     z-index: var(--z-keyboard) !important; 
+    position: fixed !important;
+}
+
+/* 2. تحسين حقل الإدخال عند الضغط عليه لضمان عدم اختفائه */
+.math-input:focus-within,
+math-field:focus-within {
+     z-index: var(--z-modal) !important; /* لتبقى بمستوى المودال */
+    position: relative;
+    border-color: var(--accent-secondary) !important;
+    box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+}
+
+
+/* ====================  MATH & CALCULATOR ==================== */
+
+/* --- Math Expressions --- */
+.math-expression {
+    display: inline-block; background: var(--math-bg);
+    border: 2px solid var(--math-border); border-radius: var(--radius-sm);
+    padding: 6px 12px; margin: 3px 6px; cursor: pointer;
+    direction: ltr; unicode-bidi: isolate; vertical-align: middle;
+    box-shadow: var(--math-shadow);
+}
+.math-expression:hover { transform: translateY(-2px); border-color: var(--primary-color); }
+.math-expression .katex { color: var(--text-color); font-size: 1.2em; }
+.dark-mode .math-expression .katex { color: var(--text-on-primary); }
+
+.katex-block-container {
+    width: 100%; overflow-x: auto; padding: 8px 0;
+    scrollbar-width: thin; scrollbar-color: var(--primary-color) transparent;
+}
+
+/* --- Charts --- */
+.chart-container {
+    width: 100%; height: 320px; background: var(--bg-input);
+    border: 2px solid var(--primary-color); padding: 16px;
+    margin: 12px 0; border-radius: var(--radius-lg); position: relative;
+    box-shadow: 0 4px 16px var(--shadow-lg); overflow: hidden;
+}
+.chart-container::before { content: '📊'; position: absolute; top: 12px; right: 12px; font-size: 24px; opacity: 0.3; }
+
+/* --- Scientific Calculator Modal (LTR Force) --- */
+#calculatorModal .modal-content { 
+    direction: ltr;
+    padding: 20px;
+    max-width: 420px;
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow-y: auto;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 0;
+}
+#calculatorModal .modal-header { direction: rtl; border-bottom: 2px solid var(--bg-input); }
+
+/* Calculator Grid */
+.calculator-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+
+/* Display Screen */
+.calc-display {
+    grid-column: 1 / -1; background-color: #eef1f5; color: #2d3748;
+    padding: 14px; border-radius: 10px; text-align: left;
+    margin-bottom: 15px; border: 2px solid #cbd5e0; min-height: 100px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    font-family: 'Roboto Mono', monospace;
+    direction: ltr;
+}
+.dark-mode .calc-display { background-color: #1a202c; color: #f7fafc; border-color: #4a5568; }
+.calc-history { font-size: 0.9rem; color: #718096; min-height: 20px; direction: ltr; text-align: left; }
+.calc-screen { font-size: 2rem; font-weight: 700; word-break: break-all; direction: ltr; text-align: left; }
+
+/* Buttons */
+.calc-btn {
+    height: 48px; font-size: 1rem; font-weight: 600;
+    border-radius: 12px; border: none; cursor: pointer;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.1); user-select: none;
+}
+.calc-btn:active { top: 3px; box-shadow: 0 1px 0 rgba(0,0,0,0.1); position: relative; }
+
+/* Button Colors */
+.num-btn { background: #ffffff; color: #2d3748; }
+.dark-mode .num-btn { background: #2d3748; color: white; }
+.op-btn { background: #ebf8ff; color: #3182ce; font-size: 1.4rem; }
+.dark-mode .op-btn { background: #2c5282; color: #bee3f8; }
+.func-btn { background: #edf2f7; color: #4a5568; font-size: 0.9rem; }
+.dark-mode .func-btn { background: #4a5568; color: #e2e8f0; }
+.clear-btn { background: #fed7d7; color: #c53030; }
+.dark-mode .clear-btn { background: #742a2a; color: #feb2b2; }
+.equal-btn { background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); color: white; font-size: 1.3rem; }
+.plot-btn { background: linear-gradient(135deg, #9f7aea 0%, #805ad5 100%); color: white; font-size: 0.8rem; }
+
+.math-expression {
+    user-select: all; /* تجعل العنصر يُحدد بالكامل عند النقر عليه */
+    -webkit-user-select: all;
+    display: inline-flex; /* تساعد في محاذاة المؤشر */
+    vertical-align: middle;
+    padding: 2px 4px;
+     caret-color: var(--primary-color);
+}
+/* إظهار حدود خفيفة عند وضع المؤشر بجانبها لتسهيل الحذف */
+.editor-area .math-expression:hover {
+    box-shadow: 0 0 0 1px var(--primary-color);
+}

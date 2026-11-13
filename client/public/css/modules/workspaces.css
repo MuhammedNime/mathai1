@@ -1,0 +1,459 @@
+/* ==================== 7. ADVANCED WORKSPACES ==================== */
+
+/* --- Main Modal Setup --- */
+.workspace-modal-advanced {
+    display: flex; flex-direction: column;
+    max-width: 1400px !important; width: 95vw !important; height: 95vh !important;
+    padding: 15px; background: var(--bg-container); border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3); overflow: hidden;
+}
+
+.workspace-modal-advanced .modal-header {
+    flex: 0 0 auto;
+}
+
+.workspace-modal-advanced .modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.workspace-modal-advanced .modal-footer {
+    flex: 0 0 auto;
+}
+
+@media (max-width: 768px) {
+    .workspace-modal-advanced .modal-body {
+        max-height: none;
+    }
+}
+
+/* Mobile Reset for Workspace */
+@media (max-width: 768px) {
+    .workspace-modal-advanced {
+        width: 100vw !important; height: 100vh !important;
+        max-height: 100vh !important; border-radius: 0 !important;
+        margin: 0 !important; padding: 10px; overflow: hidden;
+    }
+}
+
+/* --- Geometry Workspace Layout --- */
+.geo-vertical-layout { display: flex; flex-direction: column; gap: 15px; height: 100%; overflow: hidden; }
+
+.geo-inspector-panel {
+    background: var(--bg-container);
+    border-radius: 12px;
+    border: 1px solid var(--modal-border);
+    padding: 12px;
+}
+
+.geo-inspector-panel details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.geo-inspector-summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    cursor: pointer;
+    padding: 6px 4px;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.geo-inspector-summary::-webkit-details-marker {
+    display: none;
+}
+
+.geo-inspector-summary-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.geo-inspector-chevron {
+    font-size: 14px;
+    transition: transform 0.2s ease;
+}
+
+.geo-inspector-panel details[open] .geo-inspector-chevron {
+    transform: rotate(180deg);
+}
+
+.geo-inspector-content {
+    margin-top: 10px;
+    max-height: 280px;
+    overflow-y: auto;
+    padding-right: 4px;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.workspace-toolbar {
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: linear-gradient(135deg, var(--bg-input-area), var(--bg-container));
+    padding: 10px;
+    border-radius: 12px;
+    scroll-snap-type: x proximity;
+}
+
+@media (min-width: 1024px) {
+    .geo-vertical-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 320px;
+        grid-template-rows: auto minmax(0, 1fr);
+        gap: 16px;
+    }
+
+    .geo-vertical-layout .workspace-toolbar {
+        grid-column: 1 / -1;
+    }
+
+    .geo-vertical-layout .workspace-canvas-container {
+        grid-column: 1 / 2;
+    }
+
+    .geo-vertical-layout .geo-inspector-panel {
+        grid-column: 2 / 3;
+        max-height: none;
+        height: 100%;
+    }
+
+    .geo-inspector-content {
+        max-height: none;
+    }
+}
+
+@media (max-width: 1023px) {
+    .geo-vertical-layout .geo-inspector-panel {
+        max-height: none;
+    }
+
+    .workspace-toolbar {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        gap: 6px;
+        padding-bottom: 6px;
+    }
+
+    .workspace-toolbar::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .geo-inspector-content {
+        max-height: 200px;
+    }
+}
+
+/* Toolbar */
+.workspace-toolbar {
+    display: flex; gap: 10px; flex-wrap: wrap; padding: 12px;
+    background: linear-gradient(135deg, var(--bg-input-area), var(--bg-container));
+    border-radius: 15px; border: 1px solid var(--modal-border);
+}
+.tool-btn {
+    position: relative; padding: 12px 16px; border: 2px solid transparent;
+    background: var(--bg-container); color: var(--text-color);
+    border-radius: 12px; cursor: pointer; font-size: 20px; min-width: 55px;
+    display: flex; align-items: center; justify-content: center;
+}
+
+/* Geometry solve button: keep compact height */
+#geometry-workspace-modal #solve-geometry-btn {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+}
+
+.tool-btn {
+    scroll-snap-align: start;
+}
+
+@media (max-width: 768px) {
+    .tool-btn {
+        min-width: 44px;
+        padding: 8px 10px;
+        font-size: 18px;
+        border-radius: 10px;
+    }
+}
+.tool-btn:hover, .tool-btn.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-bg));
+    color: white; border-color: var(--secondary-bg);
+}
+
+/* Canvas Area */
+.workspace-canvas-container {
+    position: relative; min-height: 350px; flex-grow: 1;
+    background: var(--bg-container); border-radius: 15px; overflow: hidden;
+    border: 2px solid var(--modal-border);
+}
+
+@media (max-width: 1023px) {
+    .workspace-canvas-container {
+        min-height: min(52vh, 420px);
+    }
+}
+#geometry-canvas { width: 100%; height: 100%; cursor: crosshair; touch-action: none; }
+
+/* Inspector Panel */
+.geo-inspector-panel {
+    background: linear-gradient(135deg, var(--bg-container), var(--bg-input-area));
+    border-radius: 15px; padding: 18px; max-height: 280px;
+    overflow-y: auto; border: 1px solid var(--modal-border);
+}
+.input-group { background: var(--bg-input-area); padding: 14px; border-radius: 12px; margin-bottom: 10px; border: 1px solid var(--modal-border); }
+.input-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--modal-border); }
+.input-row input.geo-input {
+    width: 130px; padding: 8px 12px; border: 2px solid var(--modal-border);
+    border-radius: 8px; background: var(--bg-container); color: var(--text-color);
+    text-align: center; font-weight: 600;
+}
+
+/* Solve Button */
+#solve-geometry-btn {
+    width: 100%; margin-top: 0; padding: 16px; font-size: 17px; font-weight: bold;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-bg));
+    color: white; border: none; border-radius: 15px; cursor: pointer;
+}
+
+/* --- Matrix & Calculus Workspaces --- */
+.matrix-workspace-body-vertical,
+.calculus-workspace-body-vertical {
+    display: flex; flex-direction: column; flex-grow: 1; gap: 15px;
+    padding: 10px; overflow-y: auto;
+}
+
+.matrix-workspace-body-vertical fieldset,
+.calculus-workspace-body-vertical fieldset,
+.workspace-body-vertical fieldset,
+.workspace-body-vertical .form-group {
+    background: var(--bg-container);
+    border: 1px solid var(--modal-border);
+    border-radius: 12px;
+}
+
+.matrix-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.matrix-controls label {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.matrix-grid-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 10px 0;
+}
+
+.matrix-grid-container::-webkit-scrollbar {
+    height: 6px;
+}
+
+.matrix-grid-container::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 10px;
+}
+
+.matrix-grid-container table,
+.matrix-grid-container .matrix-table {
+    margin: 0 auto;
+}
+
+.matrix-operation-select {
+    background: var(--bg-input-area);
+}
+
+/* Compact sticky footer buttons inside workspaces */
+.workspace-modal-advanced .modal-footer.compact-footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 0;
+    padding: 6px 10px calc(6px + env(safe-area-inset-bottom));
+}
+
+.workspace-modal-advanced .modal-footer.compact-footer .btn {
+    white-space: nowrap !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.15;
+    padding: 10px 12px !important;
+}
+
+.workspace-modal-advanced .modal-footer.compact-footer .btn .btn-label {
+    flex: 1 1 auto;
+    min-width: 0;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .workspace-modal-advanced .modal-footer.compact-footer {
+        padding: 4px 8px calc(4px + env(safe-area-inset-bottom));
+    }
+
+    .workspace-modal-advanced .modal-footer.compact-footer .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 44px;
+        min-height: 44px;
+        padding: 0 12px !important;
+        font-size: 13px !important;
+    }
+}
+
+/* Fieldsets */
+.matrix-workspace-body-vertical fieldset,
+.calc-fieldset {
+    border: 1px solid var(--modal-border); border-radius: 8px;
+    padding: 10px 15px; margin: 0; min-height: 0; flex-shrink: 0;
+}
+.matrix-workspace-body-vertical legend,
+.calc-fieldset legend { font-weight: 600; color: var(--primary-color); padding: 0 8px; }
+
+/* Matrix Inputs */
+.matrix-cell, .matrix-dim {
+    padding: 6px; border: 1px solid var(--modal-border);
+    border-radius: 5px; background-color: var(--bg-input);
+    color: var(--text-primary); text-align: center;
+}
+.matrix-cell.matrix-cell-invalid {
+    border-color: var(--delete-bg);
+    background-color: rgba(245, 101, 101, 0.12);
+    box-shadow: 0 0 0 1px rgba(245, 101, 101, 0.35);
+}
+.matrix-operation-select {
+    width: 100%; padding: 12px; border: 1px solid var(--primary-color);
+    border-radius: 8px; background-color: var(--bg-input-area);
+    color: var(--text-primary); cursor: pointer;
+}
+math-field { width: 100%; font-size: 1.35rem; min-height: 60px; padding: 10px 14px; }
+
+/* Dark Mode Overrides for Workspace */
+.dark-mode .workspace-modal-advanced { background: linear-gradient(135deg, #1a1a2e, #16213e); }
+.dark-mode .tool-btn { background: #252545; }
+.dark-mode .input-group { background: #1e1e3f; }
+/* ==================== MATRIX MOBILE FIXES (PROFESSIONAL) ==================== */
+
+/* 1. حاوية المصفوفة: السماح بالتمرير الأفقي إذا كانت المصفوفة كبيرة */
+.matrix-render-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow-x: auto; /* <--- أهم خاصية: تمرير أفقي عند الحاجة */
+    padding: 10px 0;
+    -webkit-overflow-scrolling: touch; /* نعومة التمرير في الآيفون */
+}
+
+/* 2. تحسين مظهر الأقواس */
+.matrix-bracket {
+    border: 2px solid var(--text-color);
+    width: 10px;
+    border-right: none; /* القوس الأيسر */
+    border-radius: 8px 0 0 8px; /* تقوس الزوايا */
+    margin-right: 2px;
+}
+.matrix-bracket.right {
+    border-right: 2px solid var(--text-color);
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+    margin-left: 2px;
+    margin-right: 0;
+}
+
+/* 3. تنسيق الجدول الخاص بالمصفوفة */
+.matrix-table {
+    border-collapse: separate;
+    border-spacing: 4px; /* مسافة صغيرة بين الخلايا */
+    margin: 0 5px;
+}
+
+/* 4. الوضع الخاص للموبايل (تحسينات قوية) */
+@media (max-width: 768px) {
+    
+    /* جعل أزرار التحكم والعمليات فوق بعضها */
+    .matrix-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        background: var(--bg-hover);
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .matrix-controls > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    /* تصغير حجم خلايا المصفوفة لتناسب الشاشة */
+    .matrix-cell {
+        width: 40px !important;  /* عرض ثابت وصغير */
+        height: 40px !important; /* ارتفاع مربع */
+        padding: 4px !important;
+        font-size: 14px !important; /* خط أصغر */
+        text-align: center;
+        border-radius: 6px;
+    }
+
+    /* في حال استخدام math-field داخل المصفوفة */
+    .matrix-cell math-field, 
+    math-field.matrix-cell {
+        width: 40px !important;
+        min-width: 0 !important;
+        padding: 2px !important;
+        font-size: 14px !important;
+    }
+
+    /* تقليل حجم حقول اختيار الأبعاد (Dimensions) */
+    .matrix-dim {
+        width: 50px;
+        padding: 6px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    /* زر إنشاء المصفوفة يأخذ العرض الكامل */
+    #create-matrix-btn, .action-btn-full {
+        width: 100%;
+        margin-top: 5px;
+    }
+}
+.math-expression {
+    user-select: all; /* تجعل العنصر يُحدد بالكامل عند النقر عليه */
+    -webkit-user-select: all;
+    display: inline-flex; /* تساعد في محاذاة المؤشر */
+    vertical-align: middle;
+    padding: 2px 4px;
+     caret-color: var(--primary-color);
+}
+/* إظهار حدود خفيفة عند وضع المؤشر بجانبها لتسهيل الحذف */
+.editor-area .math-expression:hover {
+    box-shadow: 0 0 0 1px var(--primary-color);
+}

@@ -1,0 +1,11 @@
+# Local config (contains secrets)
+js/config.js
+.env
+
+# Node / tooling
+node_modules/
+.DS_Store
+.vscode/
+
+# Local Netlify folder
+.netlify

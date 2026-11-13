@@ -1,0 +1,10 @@
+{
+  "name": "workwithserver",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "postinstall": "cd client && npm install --include=dev",
+    "build": "cd client && npm install --include=dev && npm run build",
+    "start": "npm run build && node server/server.cjs"
+  }
+}

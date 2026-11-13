@@ -1,0 +1,371 @@
+
+
+/* --- Sidebar Navigation --- */
+.sidebar-nav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: var(--z-sidebar); /* بدلاً من 2000 */
+    top: 0;
+    right: 0;
+    background-color: var(--bg-container);
+    overflow-x: hidden;
+    overflow-y: hidden;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    padding-top: 0;
+    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(10px);
+}
+
+.sidebar-nav.open { width: 320px; }
+@media (max-width: 700px) { .sidebar-nav.open { width: 280px; } }
+
+.sidebar-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--bg-container);
+    color: var(--text-color);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.08);
+    border-bottom: 1px solid var(--modal-border);
+}
+
+.sidebar-header-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar-account-btn {
+    flex: 1 1 auto;
+    min-width: 0;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: var(--primary-gradient);
+    color: white;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sidebar-account-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(102, 126, 234, 0.25);
+}
+
+.sidebar-account-btn::after {
+    content: '⚙️';
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.sidebar-account-name {
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.login-status-area {
+    padding: 0;
+    background: transparent;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.account-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.account-email {
+    font-size: 13px;
+    color: var(--text-secondary);
+    word-break: break-all;
+}
+
+.account-action-btn {
+    width: 100%;
+    background: var(--bg-container);
+    border: 1px solid var(--modal-border);
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: right;
+}
+
+.account-action-btn.primary {
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+}
+
+.account-action-btn.danger {
+    background: var(--delete-bg);
+    color: white;
+    border: none;
+}
+
+.sidebar-login-options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed var(--modal-border);
+}
+
+.sidebar-option-btn {
+    background: var(--bg-container);
+    border: 1px solid var(--modal-border);
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-size: 13px;
+    cursor: pointer;
+    text-align: right;
+}
+
+.sidebar-close-btn {
+    color: var(--text-color);
+    font-size: 34px;
+    background: var(--bg-input-area);
+    border: 1px solid var(--modal-border);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.sidebar-close-btn:hover {
+    background: var(--bg-hover);
+    transform: rotate(90deg);
+}
+
+.sidebar-menu-item {
+    padding: 16px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    color: var(--text-color);
+    display: block;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+    border-left: 3px solid transparent;
+    margin: 4px 0;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: right;
+    cursor: pointer;
+}
+
+.sidebar-menu-item:hover { 
+    background-color: var(--bg-hover);
+    border-left-color: var(--primary-color);
+    padding-right: 18px;
+    padding-left: 17px;
+}
+.sidebar-content {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-section {
+    margin: 6px 0 12px;
+}
+
+.sidebar-section-title {
+    padding: 4px 20px 0;
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+/* ==================== SIDEBAR FOOTER (CONTACT) ==================== */
+
+.sidebar-contact-footer {
+    padding: 20px;
+    border-top: 1px solid var(--modal-border);
+    margin-top: 0;
+    background: var(--bg-container);
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
+}
+
+.contact-link-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: opacity 0.3s;
+    background: var(--primary-gradient); /* إضافة خلفية لزر التواصل ليكون بارزاً */
+}
+
+.contact-link-btn:hover {
+    opacity: 0.9;
+}
+
+.dark-mode .contact-link-btn {
+    filter: brightness(0.9) saturate(0.9);
+}
+
+/* Library Styles inside Sidebar */
+.library-main-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 20px; background: var(--primary-color); color: white;
+    cursor: pointer; font-weight: 700;
+}
+.library-content, .lesson-list { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; background: var(--bg-container); }
+.library-content.open {
+    overflow: visible; 
+    padding-bottom: 10px;
+}
+.topic-header { padding: 12px 20px; background: var(--bg-input-area); border-bottom: 1px solid var(--modal-border); cursor: pointer; display: flex; justify-content: space-between; }
+.lesson-item { display: block; padding: 10px 20px 10px 40px; color: var(--text-color); text-decoration: none; border-bottom: 1px solid var(--modal-border); }
+
+/* --- Bottom Navigation --- */
+.bottom-nav-menu {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    width: min(100%, var(--app-max-width));
+    max-width: 720px;
+    background-color: var(--bg-container);
+    box-shadow: 0 -8px 24px var(--shadow);
+    z-index: var(--z-bottom-nav); /* بدلاً من 101 */
+    display: flex;
+    flex-direction: column;
+    padding: 18px var(--app-gutter) calc(18px + env(safe-area-inset-bottom));
+    transition: transform 0.3s ease-out;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+}
+
+
+.bottom-nav-menu.open { transform: translateX(-50%) translateY(0); }
+
+.tool-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.tool-divider { width: 100%; text-align: center; color: var(--text-secondary); padding: 5px 0 15px 0; border-bottom: 1px solid var(--modal-border); margin-bottom: 10px;}
+
+.bottom-nav-btn {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: none; border: none; color: var(--text-secondary);
+    font-size: 13px; cursor: pointer; width: 96px;
+    padding: 6px 4px; border-radius: 10px;
+}
+.bottom-nav-btn:hover { color: var(--primary-color); background: var(--bg-hover); }
+.bottom-nav-btn:hover { color: var(--primary-color); }
+.bottom-nav-btn .icon { font-size: 28px; margin-bottom: 5px; }
+
+.bottom-nav-close-btn {
+    position: absolute; top: 10px; left: 15px;
+    background: none; border: none; color: var(--text-secondary);
+    font-size: 32px; cursor: pointer; z-index: 102;
+}
+.bottom-nav-close-btn:hover { color: var(--delete-bg); }
+
+
+
+/* ==================== تنسيق القوائم المتداخلة الاحترافية ==================== */
+
+/* 1. المستوى الأول: العنوان الرئيسي (مثل: الجبر) */
+.topic-header {
+    padding: 15px 20px;
+    background: var(--bg-input-area); /* لون فاتح */
+    border-bottom: 1px solid var(--modal-border);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 800;
+    color: var(--primary-color);
+    transition: background 0.3s;
+}
+.topic-header:hover { background: var(--bg-hover); }
+
+/* 2. المستوى الثاني: القائمة الفرعية (مثل: المرحلة الابتدائية) */
+.level-header {
+    padding: 12px 25px 12px 20px; /* إزاحة لليمين قليلاً */
+    background: rgba(0, 0, 0, 0.03); /* خلفية أغمق قليلاً للتمييز */
+    border-bottom: 1px solid var(--modal-border);
+    border-right: 4px solid var(--secondary-bg); /* خط جانبي للتمييز */
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 0.95em;
+    color: var(--text-color);
+}
+.level-header:hover { background: rgba(0, 0, 0, 0.06); }
+
+/* 3. المستوى الثالث: الدرس (الرابط النهائي) */
+.lesson-item {
+    padding: 10px 30px 10px 20px; /* إزاحة أكبر لليمين */
+    background: var(--bg-container);
+    border-bottom: 1px dashed var(--modal-border);
+    display: flex;
+    align-items: center;
+    transition: all 0.2s;
+}
+.lesson-item:hover {
+    background-color: var(--bg-info);
+    padding-right: 35px; /* حركة بسيطة عند التحويم */
+}
+.lesson-item a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9em;
+    width: 100%;
+}
+
+/* أيقونة السهم للدوران */
+.icon {
+    transition: transform 0.3s ease;
+    font-size: 12px;
+}
+/* كلاس يتم إضافته عند الفتح لتدوير السهم */
+.rotate-90 {
+    transform: rotate(90deg); /* أو -90 حسب الاتجاه */
+}
+
+/* حاويات القوائم المخفية */
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+}
+
+

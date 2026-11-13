@@ -1,0 +1,315 @@
+/* ==================== 4. CHAT INTERFACE & MESSAGES ==================== */
+
+/* --- Messages Area --- */
+.chat-messages {
+    flex-grow: 1;
+    padding: 1px 1px calc(var(--input-area-offset) + env(safe-area-inset-bottom)) 6px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: var(--bg-messages);
+    position: relative;
+    scrollbar-gutter: stable both-edges;
+    scroll-padding-bottom: calc(var(--input-area-offset) + 6px);
+    isolation: isolate;
+    /* خلفية خفيفة */
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.03) 0%, transparent 50%);
+}
+
+.chat-messages::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("/images/app-bg.png") center 25% / clamp(280px, 60vmin, 520px) no-repeat;
+    background-image: -webkit-image-set(
+        url("/images/app-bg.webp") type("image/webp"),
+        url("/images/app-bg.png") type("image/png")
+    );
+    background-image: image-set(
+        url("/images/app-bg.webp") type("image/webp"),
+        url("/images/app-bg.png") type("image/png")
+    );
+    opacity: 0.14;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.chat-messages > * {
+    position: relative;
+    z-index: 1;
+}
+
+.dark-mode .chat-messages::before {
+    opacity: 0.1;
+    filter: saturate(1.05) brightness(0.9);
+}
+
+
+/* --- Message Bubbles --- */
+.message-bubble {
+    max-width: min(var(--bubble-max-width), 100%);
+    width: fit-content;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+    border-radius: var(--radius-lg);
+    line-height: 1.6;
+    box-shadow: var(--bubble-shadow);
+    display: inline-block;
+    color: var(--text-color);
+    position: relative;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: messageSlideIn 0.4s ease-out;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+@keyframes messageSlideIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.message-bubble:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2); }
+
+/* User Message */
+.incoming {
+    background: var(--bg-outgoing);
+    color: var(--text-on-primary);
+    margin-left: auto; margin-right: 0;
+    border-bottom-right-radius: 4px;
+    text-align: right; float: right; clear: both;
+}
+
+/* AI Message */
+.outgoing {
+    background: var(--bg-incoming);
+    color: var(--text-color);
+    margin-right: 0; margin-left: auto;
+    border-bottom-left-radius: 4px;
+    text-align: right; float: right; clear: both;
+    border: 1px solid var(--modal-border);
+}
+.dark-mode .outgoing { border: 1px solid rgba(255, 255, 255, 0.05); }
+
+/* AI Avatar Icon (disabled) */
+.outgoing::before { content: none; display: none; }
+
+/* Content within Bubbles */
+.message-bubble img {
+    max-width: 100%; max-height: 200px;
+    border-radius: var(--radius-md); margin-bottom: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 600px) {
+    .message-bubble {
+        max-width: 100%;
+        padding: 12px 14px;
+    }
+}
+
+.message-bubble table {
+    width: 100%; border-collapse: collapse; margin: 8px 0;
+    direction: ltr; text-align: center; background: var(--bg-input);
+    border-radius: 8px; overflow: hidden; display: block;
+    max-width: 100%; overflow-x: auto;
+}
+.message-bubble table th { background: var(--primary-color); color: white; padding: 10px; white-space: nowrap;}
+.message-bubble table td { padding: 10px; border: 1px solid var(--modal-border); white-space: nowrap;}
+
+.message-bubble h3 { color: var(--primary-color); border-bottom: 2px solid var(--primary-color); margin: 4px 0; }
+.message-bubble pre { background-color: var(--bg-input); padding: 8px; border-radius: var(--radius-sm); overflow-x: auto; direction: ltr;}
+
+/* Message Actions (Copy/Share) */
+.message-actions {
+    position: absolute; bottom: -10px; left: 10px;
+    display: flex; gap: 6px; opacity: 0; transition: opacity 0.3s, transform 0.3s;
+    transform: translateY(10px);
+}
+.message-bubble:hover .message-actions { opacity: 1; transform: translateY(0); }
+.message-bubble.ltr {
+    direction: ltr;
+    text-align: left;
+}
+.message-bubble.ltr .message-actions {
+    left: auto;
+    right: 10px;
+}
+.action-icon-btn {
+    background: var(--bg-container); border: 1px solid var(--modal-border);
+    border-radius: 50%; width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+}
+
+/* --- Input Area --- */
+
+
+.chat-input-area {
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-shrink: 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: var(--z-input-area);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--modal-border);
+    gap: 0;
+}
+
+.dark-mode .chat-input-area {
+    background-color: rgba(30, 41, 59, 0.92);
+}
+
+.text-input-wrapper {
+    flex-grow: 1;
+    background-color: var(--bg-input); /* اللون الرمادي الفاتح هنا */
+    border-radius: 25px;
+    padding: 0;
+    max-height: 150px;
+    overflow-y: auto; /* السماح بالتمرير داخل الحاوية */
+    box-shadow: 0 1px 0.5px var(--shadow);
+    margin: 0;
+    display: flex;
+    align-items: flex-end;
+    direction: rtl; /* keep math tool button on the right */
+    position: relative;
+    border: 1px solid var(--modal-border); /* إضافة حدود خفيفة للجمالية */
+}
+
+.editor-area {
+    flex-grow: 1;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 18px; /* ارتفاع أولي مناسب */
+    max-height: 130px;
+    padding: 0;
+    word-wrap: break-word;
+    direction: rtl;
+    text-align: right;
+    position: relative;
+    color: var(--text-color);
+    background-color: transparent !important; /* <--- هام جداً: إجبار الشفافية */
+    overflow-y: auto;
+}
+
+/* AI messages should take full width */
+.outgoing {
+    width: 100%;
+    max-width: 100%;
+    float: none;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+}
+
+/* تنسيق النص التوضيحي (Placeholder) */
+.editor-area:empty:not(:focus)::before {
+    content: attr(data-placeholder);
+    color: var(--placeholder);
+    position: absolute;
+    top: 2px;
+    right: 0;
+    pointer-events: none;
+}
+
+/* تحسين شريط التمرير داخل حقل الكتابة */
+.text-input-wrapper::-webkit-scrollbar { width: 4px; }
+.text-input-wrapper::-webkit-scrollbar-thumb { background-color: var(--text-secondary); border-radius: 10px; }
+
+.action-btn {
+    background-color: var(--primary-color); color: white;
+    border: none; border-radius: 50%; width: 48px; height: 48px;
+    min-width: 48px; min-height: 48px; display: flex;
+    align-items: center; justify-content: center; font-size: 24px;
+    cursor: pointer; transition: background-color 0.2s;
+}
+.action-btn:hover { background-color: var(--primary-hover); }
+
+/* Input Toolbar (New Layout) */
+.chat-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    direction: rtl;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.chat-toolbar-spacer {
+    flex: 1 1 auto;
+}
+
+.chat-toolbar-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    direction: ltr;
+}
+
+.chat-options-bar {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    flex: 1 1 auto;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+.chat-options-bar::-webkit-scrollbar { height: 6px; }
+.chat-options-bar::-webkit-scrollbar-thumb { background-color: var(--primary-color); border-radius: 10px; }
+
+.chat-options-bar .dropdown-container {
+    flex: 0 0 auto;
+}
+
+.chat-option-btn {
+    background: var(--bg-input-area);
+    color: var(--text-color);
+    border: 1px solid var(--modal-border);
+    padding: 8px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.chat-options-bar .dropdown-content {
+    top: auto;
+    bottom: 100%;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .chat-toolbar {
+        gap: 6px;
+    }
+
+    .chat-option-btn {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+}
+
+/* Recording Animation */
+@keyframes pulse-red {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+    70% { transform: scale(1.2); box-shadow: 0 0 0 10px rgba(255, 0, 0, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+}
+.recording-pulse { animation: pulse-red 1.5s infinite; color: red !important; background: rgba(255, 0, 0, 0.1); }

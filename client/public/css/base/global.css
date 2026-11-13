@@ -1,0 +1,75 @@
+/* ==================== 2. GLOBAL STYLES & RESET ==================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: 'Inter', Tahoma, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-color);
+    min-height: 100dvh;
+    height: 100dvh;
+    overflow: hidden;
+    position: relative;
+    display: flex; 
+    flex-direction: column;
+}
+
+body, .chat-messages, .sidebar-nav, .modal-body {
+    overscroll-behavior: contain;
+}
+
+/* Chat Container */
+.chat-container {
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    background: var(--bg-container);
+    box-shadow: 0 0 10px var(--shadow);
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+@media (min-width: 1024px) {
+    .chat-container {
+        max-width: var(--app-max-width);
+    }
+}
+
+@media (min-width: 768px) {
+    .chat-container {
+        border-radius: 10px;
+        max-height: 800px;
+    }
+}
+
+/* Custom Scrollbar Styles */
+.editor-area::-webkit-scrollbar,
+.chat-messages::-webkit-scrollbar,
+.sidebar-nav::-webkit-scrollbar,
+.geo-inspector-panel::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.editor-area::-webkit-scrollbar-track,
+.chat-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.editor-area::-webkit-scrollbar-thumb,
+.chat-messages::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    border: 2px solid var(--bg-input);
+}

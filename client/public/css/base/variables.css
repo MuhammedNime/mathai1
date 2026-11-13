@@ -1,0 +1,115 @@
+/* ==================== 1. VARIABLES & THEMES ==================== */
+:root {
+    /* Primary Brand Colors */
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --primary-color: #667eea;
+    --primary-hover: #5568d3;
+    --accent-color: #f093fb;
+    --accent-secondary: #4facfe;
+    
+    /* Background System */
+    --bg-body: #f5f7fa;
+    --bg-container: #ffffff;
+    --bg-messages: #fafbfc;
+    --bg-input-area: #ffffff;
+    --bg-input: #f8f9fa;
+    --bg-hover: #f1f5f9;
+    --bg-info: #e3f2fd;
+    
+    /* Message Bubbles */
+    --bg-outgoing: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-incoming: #ffffff;
+    --bubble-shadow: 0 4px 15px rgba(102, 126, 234, 0.15);
+    
+    /* Text Colors */
+    --text-color: #2d3748;
+    --text-secondary: #718096;
+    --text-on-primary: #ffffff;
+    --placeholder: #a0aec0;
+    
+    /* Math Theme */
+    --math-bg: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+    --math-border: #b794f6;
+    --math-shadow: 0 2px 8px rgba(139, 92, 246, 0.2);
+    
+    /* UI Elements */
+    --modal-bg: #ffffff;
+    --modal-border: #e2e8f0;
+    --delete-bg: #f56565;
+    --success-bg: #48bb78;
+    --secondary-bg: #718096;
+    --shadow: rgba(0, 0, 0, 0.08);
+    --shadow-lg: rgba(102, 126, 234, 0.15);
+    
+    /* Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 24px;
+
+    /* Layout sizing */
+    --app-gutter: clamp(12px, 3.5vw, 28px);
+    --app-max-width: 1200px;
+    --bubble-max-width: 760px;
+    --input-area-offset: clamp(90px, 12vh, 140px);
+    
+     --z-back: -1;
+    --z-normal: 1;
+    
+    /* 1. العناصر الثابتة الأساسية */
+    --z-header: 100;        /* الهيدر */
+    --z-input-area: 100;    /* منطقة الكتابة (نفس مستوى الهيدر) */
+    
+    /* 2. القوائم المنزلقة (يجب أن تكون أعلى من الكتابة) */
+    --z-bottom-nav: 400;    /* القائمة السفلية (رفعناها لتغطي الكتابة) */
+    --z-sidebar: 500;       /* القائمة الجانبية */
+    
+    /* 3. النوافذ والتنبيهات (فوق الجميع) */
+    --z-overlay: 900;       
+    --z-modal: 1000;        
+    --z-toast: 2000;        
+    --z-keyboard: 99999;  
+}
+
+.dark-mode {
+    --primary-gradient: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+    --primary-color: #7c3aed;
+    --primary-hover: #6d28d9;
+    --accent-color: #ec4899;
+    --accent-secondary: #3b82f6;
+    
+    --bg-body: #0f172a;
+    --bg-container: #1e293b;
+    --bg-messages: #0f172a;
+    --bg-input-area: #1e293b;
+    --bg-input: #334155;
+    --bg-hover: #334155;
+    --bg-info: #1e3a8a;
+    
+    --bg-outgoing: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+    --bg-incoming: #1e293b;
+    --bubble-shadow: 0 4px 20px rgba(124, 58, 237, 0.25);
+    
+    --text-color: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-on-primary: #ffffff;
+    --placeholder: #94a3b8;
+    
+    --math-bg: linear-gradient(135deg, #5b21b6 0%, #1e40af 100%);
+    --math-border: #8b5cf6;
+    --math-shadow: 0 2px 12px rgba(139, 92, 246, 0.3);
+    
+    --modal-bg: #1e293b;
+    --modal-border: #334155;
+    --delete-bg: #dc2626;
+    --success-bg: #059669;
+    --secondary-bg: #64748b;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --shadow-lg: rgba(124, 58, 237, 0.2);
+}
+
+@media (max-width: 768px) {
+    :root {
+        --input-area-offset: 150px;
+    }
+}

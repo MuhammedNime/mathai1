@@ -1,0 +1,473 @@
+/* ==================== 5. MODALS & DROPDOWNS ==================== */
+
+.app-modal {
+    display: none; position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%; background: rgba(0,0,0,0.5);
+    z-index: 99998; backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--modal-bg); padding: 15px;
+    border-radius: 15px; box-shadow: 0 25px 50px var(--shadow);
+    width: min(92vw, 900px); max-width: 900px; max-height: min(90dvh, 900px);
+    overflow-y: auto; display: flex; flex-direction: column;
+    z-index: var(--z-modal); /* بدلاً من 9999 */
+    color: var(--text-color);
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Force full-height modal layout (all screens) */
+
+/* Modal for Mobile (Fullscreen) */
+@media (max-width: 768px) {
+    .app-modal { z-index: var(--z-overlay); /* بدلاً من 99998 */
+    }
+    .app-modal .modal-content {
+        width: 100%; height: 100%; max-width: 100%; max-height: 100%;
+        border-radius: 0; padding: 12px;
+    }
+}
+
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.modal-header h3 { margin: 0; font-size: 18px; }
+.modal-close-btn { background: none; border: none; color: var(--text-color); font-size: 30px; cursor: pointer; }
+
+/* Generic modal body/footer layout (opt-in) */
+.sticky-footer .modal-body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding-right: 4px;
+    min-height: 0;
+}
+
+.sticky-footer .modal-footer {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--modal-border);
+    background: var(--modal-bg);
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.sticky-footer .modal-footer.modal-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.sticky-footer .modal-footer.modal-buttons .btn {
+    min-width: 120px;
+}
+
+.sticky-footer .modal-footer.modal-buttons > div {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Compact footer for single primary action */
+.sticky-footer .modal-footer.compact-footer {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.sticky-footer .modal-footer.compact-footer .btn {
+    min-width: 0;
+    width: 100%;
+    padding: 10px 14px !important;
+}
+
+.sticky-footer .modal-footer.compact-footer > div {
+    width: 100%;
+}
+
+/* ==================== Tool Modals (Camera / File / Drawing) ==================== */
+.tool-modal {
+    background: linear-gradient(180deg, var(--modal-bg) 0%, var(--bg-container) 100%);
+    border: 1px solid var(--modal-border);
+}
+
+.tool-modal .modal-header {
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--modal-border);
+}
+
+.tool-modal .modal-close-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--bg-input-area);
+    border: 1px solid var(--modal-border);
+    font-size: 24px;
+}
+
+#photoSelectionArea {
+    display: grid;
+    gap: 10px;
+}
+
+#photoSelectionArea .btn {
+    width: 100%;
+}
+
+#cameraCaptureArea {
+    background: var(--bg-input-area);
+    border: 1px solid var(--modal-border);
+    border-radius: 12px;
+    padding: 10px;
+}
+
+/* Button layout improvements for photo + drawing modals */
+#photoModal .modal-buttons,
+#drawingModal .modal-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#photoModal .modal-buttons > div {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+#photoModal .modal-buttons .btn,
+#drawingModal .modal-buttons .btn {
+    min-width: 120px;
+}
+
+#drawingModal .tool-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    #photoModal .modal-buttons,
+    #drawingModal .modal-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #photoModal .modal-buttons > div {
+        width: 100%;
+    }
+
+    #photoModal .modal-buttons .btn,
+    #drawingModal .modal-buttons .btn {
+        width: 100%;
+    }
+
+    #drawingModal .tool-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #drawingModal input[type="color"] {
+        width: 100%;
+        height: 42px;
+    }
+}
+
+#cameraStream {
+    width: 100%;
+    height: auto;
+    max-height: 45vh;
+    border-radius: 12px;
+    background: #000;
+    box-shadow: inset 0 0 0 1px var(--modal-border);
+}
+
+#imageReviewArea h4 {
+    margin: 0 0 10px 0;
+    color: var(--text-secondary);
+}
+
+#reviewImagePreview {
+    width: 100%;
+    max-height: 45vh;
+    object-fit: contain;
+    border-radius: 12px;
+    border: 1px solid var(--modal-border);
+    background: var(--bg-input-area);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+#drawingCanvas {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: 1px solid var(--modal-border);
+    background:
+        linear-gradient(var(--bg-input-area), var(--bg-input-area)) padding-box,
+        repeating-linear-gradient(0deg, rgba(0,0,0,0.04), rgba(0,0,0,0.04) 1px, transparent 1px, transparent 18px),
+        repeating-linear-gradient(90deg, rgba(0,0,0,0.04), rgba(0,0,0,0.04) 1px, transparent 1px, transparent 18px);
+}
+
+#drawingModal input[type="range"] {
+    flex: 1;
+    accent-color: var(--primary-color);
+}
+
+#drawingModal input[type="color"] {
+    width: 44px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid var(--modal-border);
+    background: var(--bg-input-area);
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    .sticky-footer .modal-body {
+        max-height: calc(100vh - 220px);
+        min-height: 0;
+    }
+
+    .sticky-footer .modal-footer.modal-buttons .btn,
+    .sticky-footer .modal-footer.modal-buttons > div {
+        width: 100%;
+    }
+
+    .sticky-footer .modal-footer.modal-buttons > div {
+        justify-content: stretch;
+    }
+}
+
+/* Geometry workspace: ensure scrollable body */
+#geometry-workspace-modal .modal-body {
+    overflow-y: auto;
+    min-height: 0;
+}
+
+#geometry-workspace-modal .geo-vertical-layout {
+    min-height: 0;
+}
+
+/* Buttons & Inputs inside Modal */
+.btn { 
+    padding: 12px 24px; 
+    border: none; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    font-weight: 600; 
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 14px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-primary { 
+    background: var(--primary-color); 
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+}
+
+.btn-secondary { 
+    background: var(--secondary-bg); 
+    color: white;
+    box-shadow: 0 4px 15px rgba(113, 128, 150, 0.3);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(113, 128, 150, 0.5);
+}
+
+.btn-delete { 
+    background: var(--delete-bg); 
+    color: white;
+    box-shadow: 0 4px 15px rgba(245, 101, 101, 0.3);
+}
+
+.btn-delete:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(245, 101, 101, 0.5);
+}
+
+/* Settings Modal */
+.settings-section {
+    background: var(--bg-input-area);
+    border: 1px solid var(--modal-border);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.settings-section h4 {
+    margin: 0;
+    font-size: 14px;
+    color: var(--primary-color);
+}
+
+.settings-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.settings-row label {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.settings-hint {
+    margin: 0;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.settings-login-area .account-action-btn {
+    margin-top: 6px;
+}
+.math-input {
+    margin-bottom: 15px; 
+    outline: none; 
+    display: block;
+    border: 2px solid var(--modal-border); 
+    border-radius: 10px;
+    padding: 15px; 
+    font-size: 16px; 
+    width: 100%;
+    background-color: var(--bg-input); 
+    color: var(--text-color);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+
+.math-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: translateY(-1px);
+}
+
+.math-input::placeholder {
+    color: var(--placeholder);
+}
+
+/* Dropdowns */
+.dropdown-container, .chat-options-container { 
+    position: relative; 
+    display: inline-block; 
+}
+
+.dropdown-content, .chat-options-dropdown {
+    display: none; 
+    position: absolute; 
+    background-color: var(--modal-bg);
+    min-width: 200px; 
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    z-index: 100; 
+    border-radius: 12px; 
+    border: 1px solid var(--modal-border);
+    left: -180px;
+    margin-top: 10px;
+    overflow: hidden;
+    animation: dropdownSlide 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+}
+
+/* للـ header dropdown استخدم right بدل left */
+.dropdown-container > .dropdown-content {
+    left: auto;
+    right: 0;
+}
+
+/* Chat options dropdown: keep it inside the viewport in RTL/LTR */
+.chat-options-dropdown {
+    left: 0;
+    right: auto;
+    min-width: 180px;
+    max-width: min(240px, calc(100vw - 24px));
+}
+
+#saved-chats-content {
+    overflow: hidden;
+
+}
+
+#saved-chats-content.open {
+    overflow: hidden;
+}
+
+#savedChatsList {
+    overflow: visible;
+}
+
+@keyframes dropdownSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-content.show, .chat-options-dropdown.show { 
+    display: block; 
+}
+
+.dropdown-content a, .chat-options-dropdown a {
+    color: var(--text-color); 
+    padding: 12px 18px; 
+    text-decoration: none;
+    display: block; 
+    cursor: pointer; 
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-right: 3px solid transparent;
+}
+
+.dropdown-content a:hover, .chat-options-dropdown a:hover { 
+    background-color: var(--bg-hover);
+    border-right-color: var(--primary-color);
+    padding-right: 15px;
+    padding-left: 16px;
+}
+
+.dropdown-content a:active { 
+    background-color: var(--bg-info);
+    transform: scale(0.98);
+}

@@ -1,0 +1,741 @@
+<!-- ==================== ALL MODALS ==================== -->
+        <!-- MATH MODAL -->
+        <div class="app-modal" id="mathModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>إدخال/تعديل معادلة</h3>
+                    <button class="modal-close-btn" id="closeMathModalBtn">&times;</button>
+                </div>
+                <math-field id="mathInput" class="math-input" sounds-directory="null"></math-field>
+                <div class="modal-buttons" id="mathModalButtons">
+                    <button class="btn btn-secondary" id="cancelMathModalBtn">إلغاء</button>
+                    <button class="btn btn-primary" id="insertUpdateBtn">إدراج المعادلة</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PHOTO MODAL -->
+        <div class="app-modal" id="photoModal">
+            <div class="modal-content tool-modal sticky-footer">
+                <div class="modal-header">
+                    <h3>إدراج صورة</h3>
+                    <button class="modal-close-btn" id="closePhotoModalBtn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="photoSelectionArea" style="text-align: center;">
+                        <input type="file" id="imageFileInput" accept="image/jpeg, image/png, image/webp" style="display: none;">
+                        <button class="btn btn-primary" id="selectImageFileBtn" style="margin-bottom: 10px;">اختيار من الملفات 📂</button>
+                        <button class="btn btn-secondary" id="openCameraBtn" style="margin-bottom: 10px;">التقاط صورة 📸</button>
+                        <div id="cameraCaptureArea" style="display: none; margin-top: 15px;">
+                            <video id="cameraStream" autoplay></video>
+                            <button class="btn btn-primary" id="captureImageBtn" style="margin-top: 15px;">التقاط ✅</button>
+                        </div>
+                    </div>
+                    <div id="imageReviewArea" style="display: none; text-align: center;">
+                        <h4>معاينة الصورة</h4>
+                        <img id="reviewImagePreview">
+                    </div>
+                </div>
+                <div class="modal-footer modal-buttons">
+                    <button class="btn btn-delete" id="clearAttachmentBtn">إزالة الصورة</button>
+                    <div>
+                        <button class="btn btn-secondary" id="cancelPhotoModalBtn">إلغاء</button>
+                        <button class="btn btn-primary" id="confirmImageBtn" disabled>تأكيد الصورة</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DRAWING MODAL -->
+        <div class="app-modal" id="drawingModal">
+            <div class="modal-content tool-modal sticky-footer">
+                <div class="modal-header">
+                    <h3>الرسم اليدوي</h3>
+                    <button class="modal-close-btn" id="closeDrawingModalBtn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <canvas id="drawingCanvas" width="480" height="320"></canvas>
+                    <div class="tool-controls" style="display: flex; justify-content: space-around; margin-top: 15px;">
+                        <button class="btn btn-secondary" id="clearCanvasBtn">مسح</button>
+                        <input type="range" id="penWidth" min="2" max="15" value="5">
+                        <input type="color" id="penColor" value="#000000">
+                    </div>
+                </div>
+                <div class="modal-footer modal-buttons">
+                    <button class="btn btn-secondary" id="cancelDrawingBtn">إلغاء</button>
+                    <button class="btn btn-primary" id="processDrawingBtn">تأكيد الرسم</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- AUTH MODAL -->
+        <div class="app-modal" id="authModal">
+            <div class="modal-content sticky-footer" style="max-width: 400px;">
+                <div class="modal-header">
+                    <h3 id="authModalTitle">سجل الدخول</h3>
+                    <button class="modal-close-btn" id="closeAuthModalBtn">&times;</button>
+                </div>
+                <div class="modal-body" style="padding: 20px 0;">
+                    <input type="email" id="emailInput" placeholder="البريد الإلكتروني" class="math-input" style="margin-bottom: 15px;">
+                    <input type="password" id="passwordInput" placeholder="كلمة المرور" class="math-input" style="margin-bottom: 20px;">
+                    
+                    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--modal-border);">
+                        <a href="#" id="toggleAuthModeLink" style="text-align: center; color: var(--primary-color); font-size: 14px; text-decoration: none; transition: opacity 0.2s;">ليس لديك حساب؟ سجل الآن</a>
+                        <button id="forgotPasswordLink" class="btn btn-link" style="padding: 8px; font-size: 13px;">🔑 نسيت كلمة المرور؟</button>
+                    </div>
+                </div>
+                <div class="modal-footer modal-buttons">
+                    <button class="btn btn-secondary" id="cancelAuthModalBtn">إلغاء</button>
+                    <button class="btn btn-primary" id="authSubmitBtn">سجل الدخول</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SETTINGS MODAL -->
+        <div class="app-modal" id="settingsModal">
+            <div class="modal-content sticky-footer" style="max-width: 520px;">
+                <div class="modal-header">
+                    <h3>إعدادات الحساب</h3>
+                    <button class="modal-close-btn" data-modal-id="settingsModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="settings-section">
+                        <h4>الحساب</h4>
+                        <div id="loginStatusArea" class="login-status-area settings-login-area"></div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h4>الاسم</h4>
+                        <input type="text" id="settingsDisplayName" class="math-input" placeholder="اسم المستخدم">
+                    </div>
+
+                    <div class="settings-section">
+                        <h4>المرحلة الدراسية</h4>
+                        <div class="settings-row">
+                            <label for="settingsStage">المرحلة</label>
+                            <select id="settingsStage" class="math-input">
+                                <option value="elementary">ابتدائي</option>
+                                <option value="preparatory">إعدادي</option>
+                                <option value="secondary">ثانوي</option>
+                                <option value="higher_ed">جامعي/عالي</option>
+                                <option value="general">عام</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h4>تفضيلات الشرح</h4>
+                        <div class="settings-row">
+                            <label for="settingsExplanationMode">وضع الشرح</label>
+                            <select id="settingsExplanationMode" class="math-input">
+                                <option value="quick">سريع</option>
+                                <option value="detailed">تفصيلي</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h4>اللغة</h4>
+                        <div class="settings-row">
+                            <label for="settingsLanguage">لغة الإجابة</label>
+                            <select id="settingsLanguage" class="math-input">
+                                <option value="ar">العربية</option>
+                                <option value="en">English</option>
+                                <option value="tr">Türkçe</option>
+                            </select>
+                            <p class="settings-hint">تؤثر على لغة إجابات الذكاء الاصطناعي فقط.</p>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h4>معلومات إضافية</h4>
+                        <div class="settings-row">
+                            <label for="settingsCountry">البلد</label>
+                            <input type="text" id="settingsCountry" class="math-input" placeholder="مثال: سوريا، تركيا، السعودية...">
+                        </div>
+                        <div class="settings-row">
+                            <label for="settingsBio">نبذة عنك</label>
+                            <textarea id="settingsBio" class="math-input" rows="3" placeholder="مثال: معلم رياضيات، أحتاج شرح مختصر..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer modal-buttons">
+                    <button class="btn btn-secondary" id="closeSettingsModalBtn">إغلاق</button>
+                    <button class="btn btn-primary" id="saveSettingsBtn">حفظ الإعدادات</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SAVED CHATS MODAL -->
+        <div class="app-modal" id="savedChatsModal">
+            <div class="modal-content sticky-footer">
+                <div class="modal-header">
+                    <h3>الدردشات المحفوظة</h3>
+                    <button class="modal-close-btn" id="closeSavedChatsModalBtn">&times;</button>
+                </div>
+                <div class="modal-body" id="savedChatsList"><p>جاري التحميل...</p></div>
+            </div>
+        </div>
+<div class="app-modal" id="geometry-workspace-modal">
+    <div class="modal-content workspace-modal-advanced sticky-footer" style="height: 95vh; max-height: 900px; padding: 10px;">
+        <div class="modal-header">
+            <h3>🎨 ورشة عمل الهندسة الاحترافية</h3>
+            <button class="modal-close-btn" data-modal-id="geometry-workspace-modal">&times;</button>
+        </div>
+
+        <div class="modal-body">
+        <!-- الهيكل العمودي -->
+        <div class="geo-vertical-layout">
+
+            <!-- 1. شريط الأدوات المحسّن -->
+            <div class="workspace-toolbar">
+                <button class="tool-btn active" data-tool="select" title="تحديد وتحريك">✋</button>
+                <button class="tool-btn" data-tool="point" title="نقطة">📍</button>
+                <button class="tool-btn" data-tool="line" title="قطعة مستقيمة">➖</button>
+                <button class="tool-btn" data-tool="triangle" title="مثلث">🔺</button>
+                <button class="tool-btn" data-tool="rectangle" title="مستطيل/مربع">⬜</button>
+                <button class="tool-btn" data-tool="circle" title="دائرة">⭕</button>
+                <button class="tool-btn" data-tool="ellipse" title="قطع ناقص">⚪</button>
+                <button class="tool-btn" data-tool="cone" title="مخروط">🔻</button>
+                <button class="tool-btn" data-tool="polygon" title="مضلع (4 نقاط)">⬡</button>
+                <button class="tool-btn" data-tool="delete" title="حذف" style="color: var(--delete-bg);">🗑️</button>
+            </div>
+
+            <!-- 2. لوحة الرسم -->
+            <div class="workspace-canvas-container" style="min-height: 300px; flex-grow: 1; position: relative; background: var(--bg-container); border-radius: 12px; overflow: hidden; box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);">
+                <canvas id="geometry-canvas" style="width: 100%; height: 100%; cursor: crosshair;"></canvas>
+                
+                <!-- مساعد الرسم -->
+                <div style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 8px 12px; border-radius: 8px; font-size: 12px; pointer-events: none;">
+                    <div id="draw-helper-text">💡 حدد أداة للبدء</div>
+                </div>
+            </div>
+
+            <!-- 3. منطقة التدقيق والخصائص -->
+            <div class="geo-inspector-panel">
+                <details id="geo-inspector-details" open>
+                    <summary class="geo-inspector-summary">
+                        <span class="geo-inspector-summary-left">
+                            <span id="geo-inspector-icon">📐</span>
+                            <span id="geo-inspector-title">لم يتم تحديد شكل</span>
+                        </span>
+                        <span class="geo-inspector-chevron">⌄</span>
+                    </summary>
+                    <div id="geo-inspector-content" class="geo-inspector-content">
+                        <p style="color: var(--text-secondary); text-align: center; padding: 20px;">
+                            ارسم شكلاً هندسياً أو حدد شكلاً موجوداً لعرض خصائصه
+                        </p>
+                    </div>
+                </details>
+            </div>
+
+        </div>
+        </div>
+        <div class="modal-footer modal-buttons compact-footer">
+            <button id="solve-geometry-btn" class="btn btn-primary" style="width:100%; padding: 15px; font-size: 16px; font-weight: bold; background: linear-gradient(135deg, var(--primary-color), var(--secondary-bg)); border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); transition: all 0.3s ease;">
+                <span class="btn-label">🚀 حل المسألة وإرسالها للمستشار</span>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- ==================== ALGEBRA WORKSPACE MODAL ==================== -->
+<div class="app-modal" id="algebra-workspace-modal">
+    <div class="modal-content workspace-modal-advanced sticky-footer" style="padding: 20px;">
+        <div class="modal-header">
+            <h3>🧮 ورشة الجبر الشاملة</h3>
+            <button class="modal-close-btn" data-modal-id="algebra-workspace-modal">&times;</button>
+        </div>
+
+        <div class="modal-body">
+        <div class="workspace-body-vertical" style="gap: 15px;">
+            <!-- اختيار الفئة والطريقة -->
+            <div class="form-group">
+                <label>اختر الفئة:</label>
+                <select id="algebra-category-select" class="math-input" style="width: 100%; margin-bottom: 10px;"></select>
+                
+                <label>اختر العملية/الطريقة:</label>
+                <select id="algebra-method-select" class="math-input" style="width: 100%;"></select>
+            </div>
+
+            <!-- إدخال التعبير الرياضي -->
+            <div class="form-group">
+                <label>التعبير الرياضي / المعادلة:</label>
+                <input type="text" id="algebra-expression-input" class="math-input" placeholder="مثال: x^2 - 5x + 6 أو 3x + 2 = 0" dir="ltr">
+            </div>
+
+            <!-- المعاملات الإضافية (يظهر عند الحاجة) -->
+            <fieldset id="algebra-params-fieldset" style="display: none; padding: 10px; border: 1px solid var(--modal-border); border-radius: 8px;">
+                <legend style="color: var(--primary-color); font-weight: bold;">معاملات إضافية</legend>
+                <label id="algebra-param-label">المعامل:</label>
+                <input type="text" id="algebra-param-input" class="math-input" placeholder="">
+            </fieldset>
+
+        </div>
+        </div>
+        <div class="modal-footer modal-buttons compact-footer">
+            <button id="solve-algebra-btn" class="btn btn-primary" style="width: 100%; padding: 12px; font-weight: bold;">
+                <span class="btn-label">🚀 حل المسألة الجبرية</span>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- ==================== STATISTICS WORKSPACE MODAL ==================== -->
+<div class="app-modal" id="statistics-workspace-modal">
+    <div class="modal-content workspace-modal-advanced sticky-footer" style="padding: 20px; max-height: 90vh;">
+        <div class="modal-header">
+            <h3>📊 ورشة الإحصاء المتقدمة</h3>
+            <button class="modal-close-btn" data-modal-id="statistics-workspace-modal">&times;</button>
+        </div>
+
+        <div class="modal-body">
+        <div class="workspace-body-vertical" style="gap: 15px;">
+            <!-- اختيار الفئة والطريقة -->
+            <div class="form-group">
+                <label>اختر الفئة:</label>
+                <select id="stats-category-select" class="math-input" style="width: 100%; margin-bottom: 10px;"></select>
+                
+                <label>اختر العملية/الطريقة:</label>
+                <select id="stats-method-select" class="math-input" style="width: 100%;"></select>
+            </div>
+
+            <!-- مجموعة بيانات واحدة -->
+            <fieldset id="stats-dataset-fieldset" style="display: none; padding: 10px; border: 1px solid var(--modal-border); border-radius: 8px;">
+                <legend>البيانات</legend>
+                <label>أدخل البيانات (مفصولة بفواصل أو مسافات):</label>
+                <textarea id="stats-data-input" class="math-input" rows="3" placeholder="مثال: 10, 20, 15, 30, 25" dir="ltr"></textarea>
+            </fieldset>
+
+            <!-- مجموعتي بيانات (X, Y) -->
+            <fieldset id="stats-xy-dataset-fieldset" style="display: none; padding: 10px; border: 1px solid var(--modal-border); border-radius: 8px;">
+                <legend>بيانات الارتباط/الانحدار (X, Y)</legend>
+                <label>المتغير المستقل (X):</label>
+                <input type="text" id="stats-x-data-input" class="math-input" placeholder="مثال: 1, 2, 3, 4, 5" dir="ltr" style="margin-bottom: 10px;">
+                
+                <label>المتغير التابع (Y):</label>
+                <input type="text" id="stats-y-data-input" class="math-input" placeholder="مثال: 2, 4, 5, 4, 5" dir="ltr">
+            </fieldset>
+
+            <!-- المعاملات الإضافية -->
+            <fieldset id="stats-params-fieldset" style="display: none; padding: 10px; border: 1px solid var(--modal-border); border-radius: 8px;">
+                <legend>معاملات إضافية</legend>
+                <label id="stats-param-label">القيمة:</label>
+                <input type="text" id="stats-param-input" class="math-input" placeholder="">
+            </fieldset>
+
+        </div>
+        </div>
+        <div class="modal-footer modal-buttons compact-footer">
+            <button id="solve-stats-btn" class="btn btn-primary" style="width: 100%; padding: 12px; font-weight: bold;">
+                <span class="btn-label">📈 تحليل إحصائي</span>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- ==================== MATRIX WORKSPACE MODAL v3.0 (MOBILE-FIRST) ==================== -->
+<div class="app-modal" id="matrix-workspace-modal">
+    <div class="modal-content workspace-modal-advanced sticky-footer">
+        <div class="modal-header">
+            <h3>ورشة عمل المصفوفات</h3>
+            <button class="modal-close-btn" data-modal-id="matrix-workspace-modal">&times;</button>
+        </div>
+
+        <div class="modal-body">
+        <div class="matrix-workspace-body-vertical">
+            <!-- 1. اختيار العملية -->
+            <fieldset>
+                <legend>الخطوة 1: اختر العملية</legend>
+
+<select id="matrix-operation-select" class="matrix-operation-select">
+    <!-- العمليات الأساسية -->
+    <optgroup label="⚡ العمليات الأساسية">
+        <option value="add" data-requires-b="true" data-requires-param="false">➕ جمع (A + B)</option>
+        <option value="subtract" data-requires-b="true" data-requires-param="false">➖ طرح (A - B)</option>
+        <option value="multiply" data-requires-b="true" data-requires-param="false">✖️ ضرب (A × B)</option>
+        <option value="scalarMultiply" data-requires-b="false" data-requires-param="true">🔢 ضرب في عدد (k × A)</option>
+        <option value="power" data-requires-b="false" data-requires-param="true">رفع لقوة (A^n)</option>
+        <option value="transA" data-requires-b="false" data-requires-param="false">🔄 منقول المصفوفة A</option>
+    </optgroup>
+
+    <!-- الحسابات الأساسية -->
+    <optgroup label="🧮 الحسابات الأساسية">
+        <option value="detA" data-requires-b="false" data-requires-param="false">🎯 محدد المصفوفة A</option>
+        <option value="invA" data-requires-b="false" data-requires-param="false">🔁 معكوس المصفوفة A</option>
+        <option value="adjA" data-requires-b="false" data-requires-param="false">📐 المصفوفة المرافقة لـ A</option>
+        <option value="traceA" data-requires-b="false" data-requires-param="false">➰ أثر المصفوفة A</option>
+    </optgroup>
+
+    <!-- تحليل الأنظمة الصفية -->
+    <optgroup label="📊 تحليل الأنظمة الصفية">
+        <option value="rowEchelon" data-requires-b="false" data-requires-param="false">📈 الشكل الصفي التدريجي المختزل (RREF)</option>
+        <option value="rankA" data-requires-b="false" data-requires-param="false">🎚️ رتبة المصفوفة (Rank)</option>
+        <option value="solveSystem" data-requires-b="false" data-requires-c="true" data-requires-param="false">✅ حل النظام الخطي Ax=b</option>
+    </optgroup>
+
+    <!-- الفضاءات المتجهة -->
+    <optgroup label="🌌 الفضاءات المتجهة والقيم الذاتية">
+        <option value="colSpace" data-requires-b="false" data-requires-param="false">📍 أساس فضاء الأعمدة</option>
+        <option value="rowSpace" data-requires-b="false" data-requires-param="false">↔️ أساس فضاء الصفوف</option>
+        <option value="nullSpace" data-requires-b="false" data-requires-param="false">⭕ أساس الفضاء الصفري (Null Space)</option>
+        <option value="charPoly" data-requires-b="false" data-requires-param="false">📐 متعددة الحدود المميزة</option>
+        <option value="eigen" data-requires-b="false" data-requires-param="false">⚛️ القيم والمتجهات الذاتية</option>
+    </optgroup>
+
+    <!-- التحليلات المتقدمة -->
+    <optgroup label="🔬 التحليلات المتقدمة">
+        <option value="lu" data-requires-b="false" data-requires-param="false">🧬 تحليل LU</option>
+        <option value="cholesky" data-requires-b="false" data-requires-param="false">💎 تحليل Cholesky</option>
+    </optgroup>
+
+    <!-- الخصائص والتحليل -->
+    <optgroup label="🔍 خصائص وتحليل المصفوفة">
+        <option value="norm" data-requires-b="false" data-requires-param="false">📏 معيار المصفوفة (Norm)</option>
+<option value="conditionNumber" data-requires-b="false" data-requires-param="false">⚖️ رقم الشرط (Condition Number)</option>
+<option value="matrixType" data-requires-b="false" data-requires-param="false">🏷️ تحديد نوع المصفوفة</option>
+<option value="density" data-requires-b="false" data-requires-param="false">📊 كثافة المصفوفة (Density)</option>
+</optgroup>
+<!-- عمليات مخصصة -->
+<optgroup label="🎨 عمليات أخرى">
+    <option value="custom" data-requires-b="false" data-requires-param="false">✨ عملية مخصصة</option>
+</optgroup>
+</select>
+
+           
+<fieldset id="matrix-param-fieldset" style="display: none;">
+    <legend>الخطوة 2: أدخل المعامل</legend>
+    <div class="matrix-controls">
+        <label id="matrix-param-label">العدد (k):</label> 
+        <input type="text" id="matrix-param-input" class="matrix-dim" value="2">
+    </div>
+</fieldset>
+
+<fieldset id="matrix-c-fieldset" style="display: none;">
+    <legend>أدخل قيم المتجه b</legend>
+    <div class="matrix-controls" id="matrix-c-controls">
+        <label>صفوف:</label> <input type="number" class="matrix-dim" data-matrix="C" data-dim="rows" min="1" max="25" value="3">
+        <label>أعمدة:</label> <input type="number" class="matrix-dim" data-matrix="C" data-dim="cols" min="1" max="1" value="1" readonly>
+    </div>
+    <div id="matrix-c-grid" class="matrix-grid-container"></div>
+</fieldset>
+
+            <!-- 2. المصفوفة A -->
+            <fieldset>
+                <legend>الخطوة 2: أدخل قيم المصفوفة A</legend>
+                <div class="matrix-controls" id="matrix-a-controls">
+                    <label>صفوف:</label> <input type="number" class="matrix-dim" data-matrix="A" data-dim="rows" min="1" max="25" value="3">
+                    <label>أعمدة:</label> <input type="number" class="matrix-dim" data-matrix="A" data-dim="cols" min="1" max="25" value="3">
+                </div>
+                <div id="matrix-a-grid" class="matrix-grid-container"></div>
+            </fieldset>
+
+            <!-- 3. المصفوفة B (ستكون مخفية افتراضياً) -->
+            <fieldset id="matrix-b-fieldset">
+                <legend>الخطوة 3: أدخل قيم المصفوفة B</legend>
+                <div class="matrix-controls" id="matrix-b-controls">
+                    <label>صفوف:</label> <input type="number" class="matrix-dim" data-matrix="B" data-dim="rows" min="1" max="25" value="3">
+                    <label>أعمدة:</label> <input type="number" class="matrix-dim" data-matrix="B" data-dim="cols" min="1" max="25" value="3">
+                </div>
+                <div id="matrix-b-grid" class="matrix-grid-container"></div>
+            </fieldset>
+            
+        </div>
+        </div>
+        <div class="modal-footer modal-buttons compact-footer">
+            <button id="matrix-send-to-chat-btn" class="btn btn-primary" style="width: 100%;">
+                <span class="btn-label">احسب وأرسل للشرح</span>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="app-modal" id="calculus-workspace-modal">
+    <div class="modal-content workspace-modal-advanced sticky-footer" style="max-height: 90vh; padding: 15px;"> 
+        <div class="modal-header">
+            <h3>📈 ورشة عمل التفاضل والتكامل الاحترافية</h3>
+            <button class="modal-close-btn" data-modal-id="calculus-workspace-modal">&times;</button>
+        </div>
+
+        <div class="modal-body">
+        <div class="calculus-workspace-body-vertical" style="gap: 15px;"> 
+ 
+            <!-- 1. إدخال الدالة -->
+            <fieldset class="calc-fieldset" style="padding: 15px; border-radius: 10px; border: 1px solid var(--modal-border);">
+                <legend style="padding: 0 10px; font-weight: bold; color: var(--primary-color);">الخطوة 1: أدخل الدالة f(x)</legend>
+                <math-field id="calc-function-input" class="math-input" sounds-directory="null" placeholder="مثال: x^2 + sin(x)"></math-field>
+            </fieldset>
+
+            <!-- 2. اختيار العملية -->
+            <fieldset class="calc-fieldset" style="padding: 15px; border-radius: 10px; border: 1px solid var(--modal-border);">
+                <legend style="padding: 0 10px; font-weight: bold; color: var(--primary-color);">الخطوة 2: العملية المطلوبة</legend>
+                <select id="calculus-operation-select" class="matrix-operation-select" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--modal-border); background-color: var(--bg-input-area);">
+                    <!-- تحليل الدوال -->
+                    <optgroup label="📊 تحليل الدوال">
+                        <option value="find_domain">مجال التعريف (Domain)</option>
+                        <option value="find_asymptotes">الخطوط المقاربة (Asymptotes)</option>
+                        <option value="evaluate_at_point">حساب قيمة الدالة عند نقطة</option>
+                        <option value="find_extrema">القيم القصوى (Extrema)</option>
+                    </optgroup>
+
+                    <!-- التفاضل (Differentiation) -->
+                    <optgroup label="∂ التفاضل (Differentiation)">
+                        <option value="differentiate">dy/dx (المشتقة الأولى)</option>
+                        <option value="nth_derivative">dⁿy/dxⁿ (المشتقة النونية)</option>
+                    </optgroup>
+                    
+                    <!-- التكامل (Integration) -->
+                    <optgroup label="∫ التكامل (Integration)">
+                        <option value="integrate_indefinite">∫f(x)dx (تكامل غير محدود)</option>
+                        <option value="integrate_definite">∫[a, b] f(x)dx (تكامل محدود)</option>
+                        <option value="arc_length">طول القوس (Arc Length)</option>
+                        <option value="volume_revolution">حجم الدوران (Volume of Revolution)</option>
+                    </optgroup>
+
+                    <!-- النهايات والمتسلسلات (Limits & Series) -->
+                    <optgroup label="∞ النهايات والمتسلسلات">
+                        <option value="limit">lim f(x) (النهاية)</option>
+                        <option value="taylor">متسلسلة تايلور/ماكلورين</option>
+                        <option value="series_convergence">اختبار تقارب المتسلسلات</option>
+                    </optgroup>
+                </select>
+            </fieldset>
+
+            <!-- 3. المعاملات الإضافية -->
+            <fieldset id="calculus-params-fieldset" class="calc-fieldset" style="display: none; padding: 15px; border-radius: 10px; border: 1px solid var(--modal-border);">
+                <legend style="padding: 0 10px; font-weight: bold; color: var(--primary-color);">الخطوة 3: المعاملات الإضافية</legend>
+                
+                <div class="matrix-controls" id="calc-single-param" style="display:none; gap: 10px; align-items: center;">
+                    <label id="calc-param-label">المعامل:</label> 
+                    <input type="text" id="calc-param-input" class="matrix-dim" value="0">
+                </div>
+
+                <div class="matrix-controls" id="calc-definite-integration" style="display:none; flex-direction: column; gap: 10px;">
+                    <label id="range-label-main">حدود التكامل:</label>
+                    <div style="display: flex; gap: 10px;">
+                        <label>من (a):</label> 
+                        <input type="text" id="calc-limit-a" class="matrix-dim" value="0">
+                        <label>إلى (b):</label> 
+                        <input type="text" id="calc-limit-b" class="matrix-dim" value="1">
+                    </div>
+                </div>
+            </fieldset>
+
+        </div>
+        </div>
+        <div class="modal-footer modal-buttons compact-footer">
+            <button id="solve-calculus-btn" class="btn btn-primary" style="width: 100%; padding: 15px; font-size: 16px; font-weight: bold;">
+                <span class="btn-label">🚀 حل المسألة</span>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- ==================== UNIT CONVERTER MODAL ==================== -->
+<div class="app-modal" id="unit-converter-modal">
+    <div class="modal-content workspace-modal-advanced sticky-footer" style="max-width: 600px; height: 80vh;">
+        <div class="modal-header">
+            <h3>🔄 محول الوحدات</h3>
+            <button class="modal-close-btn" data-modal-id="unit-converter-modal">&times;</button>
+        </div>
+
+        <div class="modal-body">
+        <div class="unit-converter-layout" style="display: flex; flex-direction: column; gap: 15px; padding: 20px;">
+
+            <!-- اختيار نوع الوحدة -->
+            <fieldset style="padding: 15px; border: 1px solid var(--modal-border); border-radius: 10px;">
+                <legend style="padding: 0 10px; font-weight: bold; color: var(--primary-color);">اختر نوع الوحدة</legend>
+                <select id="unit-category-select" class="math-input" style="width: 100%; padding: 10px;">
+                    <option value="length">📏 الطول (Length)</option>
+                    <option value="mass">⚖️ الكتلة (Mass)</option>
+                    <option value="time">⏰ الزمن (Time)</option>
+                    <option value="energy">⚡ الطاقة (Energy)</option>
+                    <option value="pressure">🌪️ الضغط (Pressure)</option>
+                    <option value="temperature">🌡️ الحرارة (Temperature)</option>
+                    <option value="area">📐 المساحة (Area)</option>
+                    <option value="volume">📦 الحجم (Volume)</option>
+                    <option value="speed">💨 السرعة (Speed)</option>
+                    <option value="frequency">📻 التردد (Frequency)</option>
+                </select>
+            </fieldset>
+
+            <!-- منطقة التحويل -->
+            <div class="converter-area" style="flex-grow: 1; display: flex; flex-direction: column; gap: 15px;">
+
+                <!-- الإدخال -->
+                <fieldset style="padding: 15px; border: 1px solid var(--modal-border); border-radius: 10px;">
+                    <legend style="padding: 0 10px; font-weight: bold; color: var(--primary-color);">من (From)</legend>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="number" id="from-value" class="math-input" placeholder="أدخل القيمة" style="flex: 1;" step="any">
+                        <select id="from-unit" class="math-input" style="min-width: 120px;"></select>
+                    </div>
+                </fieldset>
+
+                <!-- زر التبديل -->
+                <div style="text-align: center;">
+                    <button id="swap-units-btn" class="btn btn-secondary" style="padding: 8px 15px; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 20px;">↕️</button>
+                </div>
+
+                <!-- الإخراج -->
+                <fieldset style="padding: 15px; border: 1px solid var(--modal-border); border-radius: 10px;">
+                    <legend style="padding: 0 10px; font-weight: bold; color: var(--primary-color);">إلى (To)</legend>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="number" id="to-value" class="math-input" placeholder="النتيجة" style="flex: 1;" readonly>
+                        <select id="to-unit" class="math-input" style="min-width: 120px;"></select>
+                    </div>
+                </fieldset>
+
+                <!-- نتائج إضافية -->
+                <div id="conversion-results" style="background: var(--bg-input-area); padding: 15px; border-radius: 10px; display: none;">
+                    <h4 style="margin-bottom: 10px; color: var(--primary-color);">تحويلات شائعة:</h4>
+                    <div id="common-conversions" style="display: grid; gap: 8px;"></div>
+                </div>
+
+            </div>
+
+        </div>
+        </div>
+        <div class="modal-footer modal-buttons compact-footer">
+            <button id="send-conversion-btn" class="btn btn-primary" style="width: 100%; padding: 15px; font-size: 16px;">
+                <span class="btn-label">📤 إرسال التحويل للمستشار</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== EXAM BUILDER MODAL ==================== -->
+<div class="app-modal" id="exam-builder-modal">
+    <div class="modal-content workspace-modal-advanced sticky-footer" style="max-width: 900px; height: 90vh;">
+        <div class="modal-header">
+            <h3>📝 منشئ الامتحانات الذكي</h3>
+            <button class="modal-close-btn" data-modal-id="exam-builder-modal">&times;</button>
+        </div>
+
+        <div class="modal-body">
+        <div class="exam-layout" style="display: flex; flex-direction: column; height: 100%; overflow: hidden;">
+
+            <!-- 1. منطقة الإعدادات والرفع -->
+            <div id="exam-setup-panel" style="padding: 20px; overflow-y: auto;">
+                <div class="upload-zone" id="exam-upload-zone" style="border: 2px dashed var(--primary-color); border-radius: 15px; padding: 30px; text-align: center; margin-bottom: 20px; cursor: pointer; transition: all 0.3s;">
+                    <div style="font-size: 40px; margin-bottom: 10px;">📂</div>
+                    <p>اضغط هنا لرفع نموذج وزاري، صفحة من كتاب، أو صورة أسئلة</p>
+                    <p style="font-size: 12px; color: var(--text-secondary);">(يدعم الصور و PDF)</p>
+                    <input type="file" id="exam-file-input" accept="image/*,application/pdf" style="display: none;">
+                </div>
+
+                <div id="exam-file-preview" style="display: none; background: var(--bg-input-area); padding: 10px; border-radius: 8px; margin-bottom: 20px; align-items: center; justify-content: space-between;">
+                    <span id="exam-file-name" style="font-weight: bold;"></span>
+                    <button class="btn btn-delete" style="padding: 5px 10px; font-size: 12px;" onclick="MathApp.ExamBuilder.clearFile()">إزالة</button>
+                </div>
+
+                <div class="exam-options" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">عدد الأسئلة:</label>
+                        <select id="exam-question-count" class="math-input" style="padding: 10px; min-height: 45px;">
+                            <option value="same">نفس نمط الملف المرفق (تلقائي)</option>
+                            <option value="5">5 أسئلة (اختبار سريع)</option>
+                            <option value="10">10 أسئلة</option>
+                            <option value="20">20 سؤال (نموذج كامل)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 5px; font-weight: 600;">مستوى الصعوبة:</label>
+                        <select id="exam-difficulty" class="math-input" style="padding: 10px; min-height: 45px;">
+                            <option value="match">مطابق للنموذج المرفق</option>
+                            <option value="harder">أصعب قليلاً (للمتميزين)</option>
+                            <option value="easier">أسهل (للمراجعة)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer modal-buttons">
+                    <button id="generate-exam-btn" class="btn btn-primary" style="width: 100%; padding: 15px; font-size: 18px;">🚀 توليد الامتحان</button>
+                </div>
+            </div>
+
+            <!-- 2. منطقة عرض الامتحان (تظهر بعد التوليد) -->
+            <div id="exam-display-panel" style="display: none; flex-direction: column; flex-grow: 1; overflow: hidden;">
+                <div id="exam-questions-container" style="flex-grow: 1; overflow-y: auto; padding: 20px; background: var(--bg-body);">
+                    <!-- الأسئلة ستظهر هنا -->
+                </div>
+                <div class="modal-footer modal-buttons" style="padding: 15px; background: var(--bg-container); border-top: 1px solid var(--modal-border); display: flex; gap: 10px;">
+                    <button id="submit-exam-btn" class="btn btn-primary" style="flex-grow: 1;">✅ تسليم الامتحان وتصحيحه</button>
+                    <button id="new-exam-btn" class="btn btn-secondary">↺ امتحان جديد</button>
+                </div>
+            </div>
+
+        </div>
+        </div>
+    </div>
+</div>
+
+        <!-- ==================== CALCULATOR MODAL (NEW) ==================== -->
+<!-- داخل ملف index.html -->
+<div class="app-modal" id="calculatorModal">
+    <div class="modal-content" id="calculatorModalContent" style="max-width: 400px; padding: 15px;">
+        
+        <div class="modal-header" style="margin-bottom: 10px;">
+            <h3>📐 آلة حاسبة علمية</h3>
+            <button class="modal-close-btn" id="closeCalculatorBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+        <div class="calculator-grid">
+            <!-- شاشة العرض -->
+            <div class="calc-display">
+                <div id="calcHistory" class="calc-history"></div>
+                <div id="calcScreen" class="calc-screen">0</div>
+            </div>
+            
+            <!-- الصف 1: الذاكرة والرسم -->
+            <button class="calc-btn func-btn" data-key="mc">MC</button>
+            <button class="calc-btn func-btn" data-key="mr">MR</button>
+            <button class="calc-btn func-btn" data-key="m+">M+</button>
+            <button class="calc-btn func-btn" data-key="m-">M-</button>
+            <button class="calc-btn plot-btn" data-key="plot" title="ارسم الدالة بيانياً">Plot 📈</button>
+
+            <!-- الصف 2: دوال علمية 1 -->
+            <button class="calc-btn func-btn" data-key="sin">sin</button>
+            <button class="calc-btn func-btn" data-key="cos">cos</button>
+            <button class="calc-btn func-btn" data-key="tan">tan</button>
+            <button class="calc-btn func-btn" data-key="log">log</button>
+            <button class="calc-btn func-btn" data-key="ln">ln</button>
+
+            <!-- الصف 3: دوال علمية 2 -->
+            <button class="calc-btn func-btn" data-key="(">(</button>
+            <button class="calc-btn func-btn" data-key=")">)</button>
+            <button class="calc-btn func-btn" data-key="^">^</button>
+            <button class="calc-btn func-btn" data-key="sqrt">√</button>
+            <button class="calc-btn func-btn" data-key="!">n!</button>
+
+            <!-- الصف 4: تحكم -->
+            <button class="calc-btn clear-btn" data-key="clear">AC</button>
+            <button class="calc-btn func-btn" data-key="toggle-sign">+/-</button>
+            <button class="calc-btn func-btn" data-key="%">%</button>
+            <button class="calc-btn op-btn" data-key="/">÷</button>
+            <button class="calc-btn op-btn" data-key="backspace">⌫</button>
+
+            <!-- الصف 5: أرقام -->
+            <button class="calc-btn num-btn" data-key="7">7</button>
+            <button class="calc-btn num-btn" data-key="8">8</button>
+            <button class="calc-btn num-btn" data-key="9">9</button>
+            <button class="calc-btn op-btn" data-key="*">×</button>
+            <button class="calc-btn op-btn" data-key="-">-</button> <!-- وضعنا الطرح هنا لتنسيق أفضل -->
+
+            <!-- الصف 6: أرقام -->
+            <button class="calc-btn num-btn" data-key="4">4</button>
+            <button class="calc-btn num-btn" data-key="5">5</button>
+            <button class="calc-btn num-btn" data-key="6">6</button>
+            <button class="calc-btn op-btn" data-key="+">+</button>
+            <!-- (مساحة فارغة مدمجة لاحقاً) -->
+
+            <!-- الصف 7: أرقام -->
+            <button class="calc-btn num-btn" data-key="1">1</button>
+            <button class="calc-btn num-btn" data-key="2">2</button>
+            <button class="calc-btn num-btn" data-key="3">3</button>
+            <!-- زر يساوي الكبير -->
+            <button class="calc-btn equal-btn" data-key="=" style="grid-row: span 2;">=</button>
+
+            <!-- الصف 8: صفر وفاصلة -->
+            <button class="calc-btn num-btn" data-key="0" style="grid-column: span 2;">0</button>
+            <button class="calc-btn num-btn" data-key=".">.</button>
+            <button class="calc-btn num-btn" data-key="pi">π</button>
+        </div>
+        </div>
+    </div>
+</div>
+        
